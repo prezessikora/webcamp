@@ -13,6 +13,10 @@ var noSquares = 6;
 colors = []
 pickedColor = ""
 
+game = {
+
+}
+
 function pickColor() {
 	pickedColor = colors[getRandomInt(noSquares)]
 	pickedColorSpan.innerText = pickedColor
@@ -25,24 +29,19 @@ function changeLevel(noColors) {
 		squares[i].classList.toggle("squareHidden")
 	}
 	noSquares = noColors;
-	newGame()
+	game.newGame()
 }
 
 easyBtn.addEventListener("click", function() {
-	if (noSquares == 3)
-		return;
 	changeLevel(3)
 })
 
 hardBtn.addEventListener("click", function() {
-	if (noSquares == 6)
-		return;
 	changeLevel(6)
 })
 
 resetButton.addEventListener("click", function() {
-	newGame()
-	h1.style.backgroundColor = "steelblue"
+	game.newGame()
 })
 
 function getRandomInt(max) {
@@ -56,16 +55,14 @@ function changeColors() {
 }
 
 function getRandomColor() {
-	r = Math.round(Math.random() * 255)
-	g = Math.round(Math.random() * 255)
-	b = Math.round(Math.random() * 255)
-
-	return "rgb("+r+", "+g+", "+b+")"
+	return "rgb("+getRandomInt(255)+", "+getRandomInt(255)+", "+getRandomInt(255)+")"
 }
 
-function newGame() {
+game.newGame = function newGame() {
 	colors = []
 	message.textContent = ""
+	h1.style.backgroundColor = "steelblue"
+	resetButton.textContent = "New game"
 	for (var i=0 ; i < noSquares ; i++) {
 
 		color = getRandomColor()
@@ -76,6 +73,7 @@ function newGame() {
 			if (this.style.backgroundColor === pickedColor) {
 				message.textContent = "Correct"
 				h1.style.backgroundColor = pickedColor;
+				resetButton.textContent = "Play again?"
 				changeColors()
 			} else {
 				this.style.backgroundColor = backgroundColor;
@@ -86,4 +84,4 @@ function newGame() {
 	pickColor()
 }
 
-newGame()
+game.newGame()
