@@ -1,0 +1,19 @@
+<%- include ("partials/header") %>
+
+<h1>Index Page</h1>
+
+<% entries.forEach(e => {  %>
+
+<h2> 
+	<%= e.title %>
+</h2>
+
+<img src="<%= e.image %>"></img>
+
+<p>Created at: <%= e.created %></p>
+
+<% }) %>
+
+</body>
+
+<%- include ("partials/footer") %>
